@@ -1,40 +1,30 @@
 import './App.css';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 function App() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const { register, handleSubmit } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
+  const onSubmit = (data) => console.log(data);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  console.log(register);
 
   return (
     <div className="App">
       <h1>ログイン</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="email">Email</label>
           <input
             id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
+            {...register('email',{ required: true })}
           />
         </div>
         <div>
-          <label htmlFor="password">パスワード</label>
+          <label htmlFor="password">Password</label>
           <input
             id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            type="password"
+            {...register('password')}
+              type="password"
           />
         </div>
         <div>
