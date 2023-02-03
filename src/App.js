@@ -1,24 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
 function App() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({ email: '', password: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({
-      email,
-      password,
-    });
+    console.log(formData);
   };
 
-  const handleChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
@@ -27,15 +20,20 @@ function App() {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email</label>
-          <input id="email" name="email" value={email} onChange={handleChangeEmail} />
+          <input
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
         </div>
         <div>
           <label htmlFor="password">パスワード</label>
           <input
             id="password"
             name="password"
-            value={password}
-            onChange={handleChangePassword}
+            value={formData.password}
+            onChange={handleChange}
             type="password"
           />
         </div>
